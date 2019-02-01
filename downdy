@@ -1,0 +1,20 @@
+#!/bin/bash
+Time=`date +%F-%H-%m-%S`
+num=`echo $RANDOM|cut -b 1`
+mkdir -p  ~/Desktop/dydownload/`date +%F`/
+read -p "你好～ 请输入抖音分享过来的 URL: " url
+echo "正在提取真实无水印视频地址，请稍等 "
+curl -s  $url |awk -F"href=\"" '{print$2}'|awk -F"</a" '{print$1}'|grep -v ^$ > curl1 
+wget -q `cat curl1` -O url2
+filename=`cat url2 |grep "\"desc\"" |awk -F"#" '{print$2}'|awk -F"\/p" '{print$1}'|sed 's/ /-/g'`
+url2=`cat url2|grep playAddr|awk '{print$2}'|awk -F"\"" '{print$2}'`
+url3=`echo $url2|sed 's/playwm/play/g'`
+urlok=`echo ${url3}"&device_platform=iphone"`
+wget --header="Host: aweme.snssdk.com" --header="User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1" "${urlok}" -o wgetlog
+downurl=`cat wgetlog |grep Location|awk '{print$2}'`
+wget -q $downurl -O /Users/lifuzhao/Desktop/dydownload/`date +%F`/${filename}.mp4
+for ((i=0;i<`echo "1"${num}`;i++)); do echo -n "."; sleep 0.1; done;echo ""
+echo "文件已经下载好！(路径:~/Desktop/dydownload/`date +%F`/)："
+ls ~/Desktop/dydownload/`date +%F`/
+open ~/Desktop/dydownload/`date +%F`/
+rm -rf curl1  url2  wgetlog
