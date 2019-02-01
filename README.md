@@ -18,3 +18,5 @@ export PATH=$PATH:/usr/local/bin/:/mnt/wifite/:/opt/bin/
 ![image](https://github.com/zgwdg/downdy/blob/master/downdy-%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B.gif)
 </br>
 3、下载视频完成
+</br>
+![image](https://github.com/zgwdg/downdy/blob/master/downdy.png)
