@@ -1,5 +1,6 @@
 # downdy
 抖音视频无水印下载 for MAC（Shell）
+</bbr>
 1、添加环境变量
 将脚本放到 /opt/bin下
 vim /etc/profile
