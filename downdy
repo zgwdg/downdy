@@ -14,7 +14,7 @@ else
 title=$title
 fi
 downurl=$downloadurl
-wget -q $downurl -O /Users/lifuzhao/Desktop/dydownload/`date +%F`/${filename}.mp4
+wget -q $downurl -O ~/Desktop/dydownload/`date +%F`/${title}.mp4
 for ((i=0;i<`echo "1"${num}`;i++)); do echo -n "."; sleep 0.1; done;echo ""
 echo "文件已经下载好！(路径:~/Desktop/dydownload/`date +%F`/)："
 ls ~/Desktop/dydownload/`date +%F`/
