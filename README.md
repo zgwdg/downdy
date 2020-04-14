@@ -28,5 +28,5 @@ export PATH=$PATH:/usr/local/bin/:/mnt/wifite/:/opt/bin/
 </br>
 最新成功截图
 </br>
+
 ![image](https://github.com/zgwdg/downdy/blob/master/ok-new.png)
-![avatar](https://github.com/zgwdg/downdy/blob/master/ok-new.png)
