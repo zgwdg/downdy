@@ -4,20 +4,18 @@ num=`echo $RANDOM|cut -b 1`
 mkdir -p  ~/Desktop/dydownload/`date +%F`/
 read -p "你好～ 请输入抖音分享过来的 URL: " url
 echo "正在提取真实无水印视频地址，请稍等 "
-KEY=`echo $url|awk -F"http://v.douyin.com/" '{print$2}'|awk -F"/" '{print$1}'`
-curl -s  http://v.douyin.com/${KEY} |awk -F"href=\"" '{print$2}'|awk -F"</a" '{print$1}'|grep -v ^$ > curl1
-wget -q `cat curl1` -O url2
-filenamesource=`cat url2 |grep "\"desc\"" |awk -F"desc\">" '{print$2}'|awk -F"<\/p" '{print$1}'`
-#if grep "#" `echo $filenamesource` ;then
-if [[ $filenamesource == *#* ]];then
-filename=`cat url2 |grep "\"desc\"" |awk -F"#" '{print$2}'|awk -F"<\/p" '{print$1}'|sed 's/ /-/g'`
+KEY=`echo $url|awk -F"http://v.douyin.com/" '{print$2}'|awk -F"/" '{print"http://v.douyin.com/"$1}'`
+result=`curl -s -d 'url=${KEY}' http://dy.lfz.pub/dydownapi.php`
+downloadurl=`echo $result|jq .data.video`
+title=`echo $result|jq .data.title`
+if [[ $title == *#* ]];then
+title=`echo $title|awk -F"#" '{print$1}'|sed 's/ /-/g'`
 else
-filename=$filenamesource
+title=$title
 fi
-downurl=`curl -s  "http://dnqia.cn/ajax/analyze.php" -d "link=http://v.douyin.com/${KEY}"|jq .data.video|grep http|sed 's/\"//g'`
+downurl=$downloadurl
 wget -q $downurl -O /Users/lifuzhao/Desktop/dydownload/`date +%F`/${filename}.mp4
 for ((i=0;i<`echo "1"${num}`;i++)); do echo -n "."; sleep 0.1; done;echo ""
 echo "文件已经下载好！(路径:~/Desktop/dydownload/`date +%F`/)："
 ls ~/Desktop/dydownload/`date +%F`/
 open ~/Desktop/dydownload/`date +%F`/
-rm -rf curl1  url2  wgetlog
