@@ -1,4 +1,5 @@
 #!/bin/bash
+num=`echo $RANDOM|cut -b 1`
 Time=`date +%F-%H-%m-%S`
 num=`echo $RANDOM|cut -b 1`
 mkdir -p  ~/Desktop/dydownload/`date +%F`/
@@ -6,7 +7,7 @@ read -p "你好～ 请输入抖音分享过来的 URL: " url
 echo "正在提取真实无水印视频地址，请稍等 "
 KEY=`echo $url|awk -F"//v.douyin.com/" '{print$2}'|awk -F"/" '{print"http://v.douyin.com/"$1}'`
 result=`curl -s -d "url=${KEY}" http://dy.lfz.pub/dydownapi.php`
-downloadurl=`echo $result|jq .data.video`
+downloadurl=`echo $result|jq .data.video|sed 's/"//g'`
 title=`echo $result|jq .data.title`
 if [[ $title == *#* ]];then
 title=`echo $title|awk -F"#" '{print$1}'|sed 's/ /-/g'`
@@ -14,8 +15,9 @@ else
 title=$title
 fi
 downurl=$downloadurl
-wget -q $downurl -O ~/Desktop/dydownload/`date +%F`/${title}.mp4
-for ((i=0;i<`echo "1"${num}`;i++)); do echo -n "."; sleep 0.1; done;echo ""
+useragent="Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1"
+wget -L --user-agent="$useragent" -q $downurl -O ~/Desktop/dydownload/`date +%F`/${title}.mp4
+for ((i=0;i<`echo "1"${num}`;i++)); do /bin/echo -n .; sleep 0.1; done;echo ""
 echo "文件已经下载好！(路径:~/Desktop/dydownload/`date +%F`/)："
 ls ~/Desktop/dydownload/`date +%F`/
 open ~/Desktop/dydownload/`date +%F`/
