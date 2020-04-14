@@ -1,6 +1,8 @@
 # downdy
 抖音视频无水印下载 for MAC（Shell）
 </br>
+##准备：
+brew 安装 wget  jq curl（如果没有的情况）
 1、添加环境变量
 </br>
 将脚本放到 /opt/bin下
