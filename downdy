@@ -4,8 +4,8 @@ num=`echo $RANDOM|cut -b 1`
 mkdir -p  ~/Desktop/dydownload/`date +%F`/
 read -p "你好～ 请输入抖音分享过来的 URL: " url
 echo "正在提取真实无水印视频地址，请稍等 "
-KEY=`echo $url|awk -F"http://v.douyin.com/" '{print$2}'|awk -F"/" '{print"http://v.douyin.com/"$1}'`
-result=`curl -s -d 'url=${KEY}' http://dy.lfz.pub/dydownapi.php`
+KEY=`echo $url|awk -F"//v.douyin.com/" '{print$2}'|awk -F"/" '{print"http://v.douyin.com/"$1}'`
+result=`curl -s -d "url=${KEY}" http://dy.lfz.pub/dydownapi.php`
 downloadurl=`echo $result|jq .data.video`
 title=`echo $result|jq .data.title`
 if [[ $title == *#* ]];then
