@@ -3,6 +3,7 @@
 </br>
 准备：</br>
 brew 安装 wget  jq curl（如果没有的情况）
+</br>
 1、添加环境变量
 </br>
 将脚本放到 /opt/bin下
